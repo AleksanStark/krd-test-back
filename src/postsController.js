@@ -11,8 +11,8 @@ class Posts {
 
   async createPost(req, res) {
     try {
-      const { name, text, subject } = req.body;
-      const post = new Post({ name, text, subject });
+      const { name, subject, text } = req.body;
+      const post = new Post({ name, subject, text });
       await post.save();
       return res.json({ message: "Пост успешно создан" });
     } catch (e) {
