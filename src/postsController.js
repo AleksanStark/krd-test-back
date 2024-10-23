@@ -2,7 +2,8 @@ const Post = require("./models/postSchema");
 class Posts {
   async getPosts(req, res) {
     try {
-      const posts = await Post.find({});
+      const { category } = req.query;
+      const posts = await Post.find({ category });
       res.json({ data: { posts } });
     } catch (e) {
       console.log(e);
@@ -11,8 +12,9 @@ class Posts {
 
   async createPost(req, res) {
     try {
-      const { name, subject, text } = req.body;
-      const post = new Post({ name, subject, text });
+      const { name, subject, text, category } = req.body;
+      console.log(name, subject, text);
+      const post = new Post({ name, subject, text, category });
       await post.save();
       return res.json({ message: "Пост успешно создан" });
     } catch (e) {
